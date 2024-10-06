@@ -1,6 +1,6 @@
 ---
 title: "Lab 2: Exploring Rodents with `ggplot2`"
-author: "Your name here!"
+author: "Ryan Chan"
 code-tools: true
 format:
   html:
@@ -12,6 +12,7 @@ embed-resources: true
 execute:
   echo: true
   error: true
+  warning: false
 ---
 
 # Part 1: GitHub Workflow
@@ -84,10 +85,8 @@ We will be investigating the animal species diversity and weights found within p
 
 ```{r}
 #| label: load-data
-#| echo: true
 
-surveys = read_csv("data/surveys.csv")
-surveys
+surveys = read_csv("data/surveys.csv", show_col_types = FALSE)
 ```
 
 **2. What are the dimensions (# of rows and columns) of these data?**
@@ -120,9 +119,9 @@ To build a `ggplot()`, we will use the following basic template that can be used
 #| eval: false
 #| label: ggplot-template-code
 
-ggplot(data = <DATA>,
-       mapping = aes(<VARIABLE MAPPINGS>)) +
-  <GEOM_FUNCTION>()
+# ggplot(data = <DATA>,
+#       mapping = aes(<VARIABLE MAPPINGS>)) +
+#  <GEOM_FUNCTION>()
 ```
 
 Let's get started!
@@ -133,8 +132,6 @@ Let's get started!
 
 ```{r}
 #| label: scatterplot-subtitle
-#| eval: false
-#| echo: true
 
 # Source: https://ggplot2.tidyverse.org/reference/labs.html
 
@@ -147,7 +144,7 @@ ggplot(data = surveys) +
   facet_wrap(~species) +
   labs(x = "Weight (g)",
        y = "",
-       title = "Relationship between Weight and Hindfoot Length in Animal Species",
+       title = "Relationship between Weight and Hindfoot Length in Species from Portal, AZ",
        subtitle = "Hindfoot Length (mm)",
   )
 ```
@@ -172,8 +169,6 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 
 ```{r}
 #| label: boxplot
-#| eval: false
-#| echo: true
 
 ggplot(data = surveys,
        mapping = aes(x = weight,
@@ -230,8 +225,6 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 
 ```{r}
 #| label: rotated-boxplot
-#| eval: false
-#| echo: true
 
 # swapping the x and y axes
 
@@ -282,7 +275,7 @@ summary(species_mod)
 
 **18. Based on the results of the ANOVA F-test, draw a conclusion in context of the hypotheses. Make sure to cite appropriate output from above.**
 
-Since the p-value = __, which is significantly less than 0.05, we reject the null hypothesis that the population mean weight is the same between all fourteen roden species. Thus, there is strong evidence to suggest that at least one rodent species has a different population mean weight in comparison to the others.
+Since the p-value is significantly less than 0.05, we reject the null hypothesis that the population mean weight is the same between all fourteen rodent species. Thus, there is strong evidence to suggest that at least one rodent species has a different population mean weight in comparison to the others.
 
 # Lab 2 Submission
 
