@@ -86,7 +86,9 @@ We will be investigating the animal species diversity and weights found within p
 ```{r}
 #| label: load-data
 
-surveys = read_csv("data/surveys.csv", show_col_types = FALSE)
+# REVISED: using the here() function to import data
+surveys = read_csv(here::here("data", "surveys.csv"),
+                   show_col_types = FALSE)
 ```
 
 **2. What are the dimensions (# of rows and columns) of these data?**
@@ -135,11 +137,13 @@ Let's get started!
 
 # Source: https://ggplot2.tidyverse.org/reference/labs.html
 
+# REVISED: alpha not being mapped to a variable
+
 ggplot(data = surveys) +
   geom_point(mapping = aes(x = weight,
-                           y = hindfoot_length,
-                           alpha = weight),
-             position = "jitter"
+                           y = hindfoot_length),
+             position = "jitter",
+             alpha = 0.5
   ) +
   facet_wrap(~species) +
   labs(x = "Weight (g)",
@@ -170,6 +174,8 @@ It takes a larger cognitive load to read text that is rotated. It is common prac
 ```{r}
 #| label: boxplot
 
+# REVISED: modifying axis labels and title
+
 ggplot(data = surveys,
        mapping = aes(x = weight,
                      y = species)
@@ -180,10 +186,10 @@ ggplot(data = surveys,
   geom_boxplot(outliers = FALSE) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(
-    x = "Species",
+    x = "Weight (g)",
     y = "",
-    subtitle = "Weight (g)",
-    title = "Weight Distribution Across Species from Portal, Arizona"
+    subtitle = "Species",
+    title = "Weight Distribution Across Rodent Species from Portal, Arizona"
   )
 ```
 
@@ -227,6 +233,8 @@ Some people (and journals) prefer for boxplots to be stacked with a specific ori
 #| label: rotated-boxplot
 
 # swapping the x and y axes
+# REVISED: fixing axis labels
+
 
 ggplot(data = surveys,
        mapping = aes(x = species,
@@ -238,10 +246,10 @@ ggplot(data = surveys,
   geom_boxplot(outliers = FALSE) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(
-    x = "Weight (g)",
+    x = "Species",
     y = "",
-    subtitle = "Species",
-    title = "Weight Distribution Across Species from Portal, Arizona"
+    subtitle = "Weight (g)",
+    title = "Weight Distribution Across Rodent Species from Portal, Arizona"
   )
 ```
 
